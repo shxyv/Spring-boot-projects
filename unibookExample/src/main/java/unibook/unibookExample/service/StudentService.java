@@ -27,8 +27,8 @@ public class StudentService {
     }
 
     public List<StudentDto> getStudents() {
-         List<Student> students = studentRepository.findAll();
-         return studentMapper.entityListToDtoList(students);
+        List<Student> students = studentRepository.findAll();
+        return studentMapper.entityListToDtoList(students);
     }
 
     public void addNewStudent(Student student) {
@@ -53,20 +53,20 @@ public class StudentService {
         return studentMapper.entityToDto(student);
     }
 
-    @Transactional
+
     public Student updateStudent(Long studentId, String name, Integer age,
                                  LocalDate dob) {
         Optional<Student> optionalStudent = Optional.ofNullable(studentRepository.findById(studentId).orElseThrow(()
                 -> new StudentNotFoundException("Student not found: " + studentId)));
 
-        if (optionalStudent.isPresent() && name.length() > 0 && name != null) {
+        if (name.length() > 0) {
             optionalStudent.get().setName(name);
-            if (age >= 18 && age != null) {
-                optionalStudent.get().setAge(age);
-            }
-            if (dob != null) {
-                optionalStudent.get().setDob(dob);
-            }
+        }
+        if (age >= 18) {
+            optionalStudent.get().setAge(age);
+        }
+        if (dob != null) {
+            optionalStudent.get().setDob(dob);
         }
         return studentRepository.save(optionalStudent.get());
     }

@@ -11,7 +11,7 @@ import javax.persistence.UniqueConstraint;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/class")
+@RequestMapping(path = "/classes")
 public class ClassController {
     private final ClassService classService;
 
@@ -44,6 +44,5 @@ public class ClassController {
     public Class updateClass(@PathVariable Long classId, @RequestParam(name = "name") String newName) {
         return classService.updateClassById(classId, newName);
     }
-
 
 }
